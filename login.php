@@ -1,13 +1,23 @@
 <?php include 'inc/header.php'; ?>
+<?php include 'db/connect.php'; ?>
 
 <?php 
-	
+	//session_start();
+  $mesaj = '';
 	if (isset($_POST['username']) && isset($_POST['password'])) { 
-		$username = $_POST['username'];
-		$pass = $_POST['password'];
-
-		echo $username . '<br>';
-		echo $pass;
+		$username = htmlentities($_POST['username']);
+		$pass = htmlentities($_POST['password']);
+    $pass = md5($pass);
+    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$pass';";
+    $res = $conn->query($sql);
+    if ($res->num_rows) {
+      $_SESSION['username'] = $username;
+      $mesaj = '';
+      header("Location: index.php");
+    } else {
+      $mesaj = 'Username sau parola incorecte.';
+    }
+		
 	}
 
 ?>
@@ -15,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="./static/login.css">
 <div class="container">
 	<h2 style="text-align: center">Log In</h2>
+  <div id="mesaj" name="mesaj"><?php echo $mesaj ?></div>
 	<form action="login.php" method="POST">
   <fieldset>
     
