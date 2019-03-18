@@ -16,8 +16,9 @@
 				<h2 style="text-align: center;"><?php echo $continut['title']; ?></h2>
 				
 				<p style="text-align: justify; text-indent: 50px;"><?php echo $continut['content']; ?></p>
-				<button class="btn btn-primary" href="#">Edit Post</button>
-				<button class="btn btn-danger" href="#">Delete Post</button>
+				<a class="btn btn-primary" href="edit.php?id=<?php echo $continut['id']; ?>">Edit Post</a>
+
+				<a  class="btn btn-danger" href="inc/deletePost.php?id=<?php echo $continut['id'] ?>">Delete Post</a>
 			</div>
 		</div>
 		
